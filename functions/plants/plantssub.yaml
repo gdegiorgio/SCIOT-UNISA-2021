@@ -1,0 +1,39 @@
+metadata:
+  name: plantssub
+  labels:
+    nuclio.io/project-name: 9cc3cc05-262c-405e-a0e7-010494876ae1
+spec:
+  description: "Function listening on  MQTT queue receiving plantID of plant that needs water."
+  handler: "main:handler"
+  runtime: nodejs
+  resources: {}
+  image: "nuclio/processor-plantssub:latest"
+  minReplicas: 1
+  maxReplicas: 1
+  targetCPU: 75
+  triggers:
+    mqttTrigger:
+      class: ""
+      kind: mqtt
+      url: "172.17.0.1:1883"
+      username: guest
+      password: guest
+      attributes:
+        subscriptions:
+          - qos: 1
+            topic: plants/thirsty
+  version: 1
+  build:
+    image: ""
+    noCache: false
+    offline: false
+    dependencies: []
+    runtimeAttributes:
+      repositories: []
+    functionSourceCode: dmFyIG1xdHQgPSByZXF1aXJlKCdtcXR0JyksIHVybCA9IHJlcXVpcmUoJ3VybCcpOwoKY29uc3QgZnMgPSByZXF1aXJlKCdmcycpOwpjb25zdCBheGlvcyA9IHJlcXVpcmUoJ2F4aW9zJykKdmFyIG1xdHRfdXJsID0gdXJsLnBhcnNlKHByb2Nlc3MuZW52LkNMT1VEQU1RUF9NUVRUX1VSTCB8fCAnbXF0dDovL2d1ZXN0Omd1ZXN0QDE3Mi4xNy4wLjM6MTg4MycpOwp2YXIgYXV0aCA9IChtcXR0X3VybC5hdXRoIHx8ICc6Jykuc3BsaXQoJzonKTsKdmFyIHVybCA9ICJtcXR0Oi8vIiArIG1xdHRfdXJsLmhvc3Q7Cgpjb25zdCBjb250ZW50ID0gJ1NvbWUgY29udGVudCEnOwoKCmNvbnN0IG1vbmdvZGJfdXJsID0gImh0dHBzOi8vZGF0YS5tb25nb2RiLWFwaS5jb20vYXBwL2RhdGEtdnJzZmwvZW5kcG9pbnQvZGF0YS9iZXRhL2FjdGlvbi91cGRhdGVPbmUiCmNvbnN0IGFwaV9rZXkgPSAiV3hRVDR0cTJDTEtibkxLR2N1cTlkTU1IcVFKOTZIZkFQNkVyZjhrZkp6ZFdFdVVEWUhuOU5iRmdGZ3JUekZMNyI7CgoKZnVuY3Rpb24gYmluMnN0cmluZyhhcnJheSkgewogIHZhciByZXN1bHQgPSAiIjsKICBmb3IgKHZhciBpID0gMDsgaSA8IGFycmF5Lmxlbmd0aDsgKytpKSB7CiAgICByZXN1bHQgKz0gU3RyaW5nLmZyb21DaGFyQ29kZShhcnJheVtpXSk7CiAgfQogIHJldHVybiByZXN1bHQ7Cn0KCmV4cG9ydHMuaGFuZGxlciA9IGZ1bmN0aW9uIChjb250ZXh0LCBldmVudCkgewoKdmFyIF9ldmVudCA9IEpTT04ucGFyc2UoSlNPTi5zdHJpbmdpZnkoZXZlbnQpKTsKdmFyIHBsYW50ID0gU3RyaW5nLmZyb21DaGFyQ29kZShfZXZlbnQuYm9keS5kYXRhWzBdKTsKCiAgICAgICAgbGV0IGJvZHkgPSB7CiAgICAgICAgICAgICdkYXRhU291cmNlJzogJ0NsdXN0ZXIwJywKICAgICAgICAgICAgJ2RhdGFiYXNlJzogJ2dyZWVuaG91c2UnLAogICAgICAgICAgICAnY29sbGVjdGlvbic6ICdwbGFudHMnLAogICAgICAgICAgICAnZmlsdGVyJyA6IHsKICAgICAgICAgICAgICAgICdwbGFudElEJyA6ICIiK3BsYW50CiAgICAgICAgICAgIH0sCiAgICAgICAgICAgICd1cGRhdGUnOiB7CiAgICAgICAgICAgICAgICAnJHNldCcgOiB7CiAgICAgICAgICAgICAgICAgICAgJ25lZWRzX3dhdGVyJyA6IHRydWUKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQogICAgICAgIH0KICAgICAgICBsZXQgY29uZmlnID0gewogICAgICAgICAgICBoZWFkZXJzOiB7CiAgICAgICAgICAgICAgICAnQ29udGVudC1UeXBlJzogJ2FwcGxpY2F0aW9uL2pzb24nLAogICAgICAgICAgICAgICAgJ0FjY2Vzcy1Db250cm9sLVJlcXVlc3QtSGVhZGVycyc6ICcqJywKICAgICAgICAgICAgICAgICdhcGkta2V5JzogYXBpX2tleQogICAgICAgICAgICB9CiAgICAgICAgfQoKICAgICAgICBheGlvcy5wb3N0KG1vbmdvZGJfdXJsLCBib2R5LCBjb25maWcpLnRoZW4oKHJlc3BvbnNlKSA9PiB7CiAgICAgICAgICAgIGNvbnRleHQuY2FsbGJhY2soJ0NyZWF0ZWQgbmV3IE1vbmdvIERCIGRvY3VtZW50IDogJywgcmVzcG9uc2UpCiAgICAgICAgfSkKICAgIH07
+    baseImage: "node:14-alpine"
+    commands:
+      - 'npm install mqtt'
+      - 'npm install axios'
+    codeEntryType: sourceCode
+  platform: {}
