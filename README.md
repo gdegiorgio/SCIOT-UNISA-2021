@@ -113,7 +113,7 @@ export function getAllPlants(){
 }
 ```
 
-Same logic is applied to retrieve temperature values, sorted by Sorted by ascending date : 
+Same logic is applied to retrieve temperature values, sorted by ascending date : 
 
 
 ```javascript
